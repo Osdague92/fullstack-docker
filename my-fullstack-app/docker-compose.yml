@@ -1,35 +1,53 @@
-version: '3.8'
+# docker-compose.yml
+version: '3.8' # Versión de la especificación de Docker Compose.
 
 services:
+  # Servicio Backend (Node.js/Express)
   backend:
     build:
-      context: ./backend
+      context: ./backend # Ruta al Dockerfile del backend.
     ports:
-      - "5000:5000"
+      - "5000:5000" # Mapea el puerto 5000 del host al puerto 5000 del contenedor.
     environment:
-      - NODE_ENV=development
-      - DATABASE_URL=${DATABASE_URL}
+      - NODE_ENV=development # Variable de entorno para el modo de desarrollo.
+      # Asegúrate de que 'your_database_name' sea el nombre real que usas en backend/db.js
+      - DATABASE_URL=mongodb://db:27017/your_database_name # URI de MongoDB para el backend.
     volumes:
-      - ./backend:/app
+      - ./backend:/app # Monta la carpeta 'backend' del host en '/app' del contenedor.
+                       # Esto permite que los cambios en tu código Node.js se reflejen en tiempo real.
+    working_dir: /app # Establece el directorio de trabajo dentro del contenedor a '/app'.
     depends_on:
-      - db
+      - db # Indica que el backend depende del servicio 'db' (MongoDB) para iniciar.
 
+  # Servicio Frontend (React)
   frontend:
     build:
-      context: ./frontend
+      context: ./frontend # Ruta al Dockerfile del frontend.
     ports:
-      - "3000:3000"
+      - "3000:3000" # Mapea el puerto 3000 del host al puerto 3000 del contenedor.
     volumes:
-      - ./frontend:/app
-
-  db:
-    image: postgres:latest
+      - ./frontend:/frontend # Monta la carpeta 'frontend' del host en '/frontend' del contenedor.
+                             # Esto es esencial para el Live Reload de React durante el desarrollo.
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      # FIX CRÍTICO para el error "ERR_OSSL_EVP_UNSUPPORTED" en Node.js 17+ (OpenSSL 3.0).
+      # Le dice a Node.js que use el proveedor legado de OpenSSL para asegurar compatibilidad.
+      - NODE_OPTIONS=--openssl-legacy-provider
+    # depends_on: # Descomenta si tu frontend necesita que el backend esté completamente listo antes de arrancar.
+    #   - backend
+
+  # Servicio de Base de Datos (MongoDB)
+  db:
+    image: mongo:latest # Utiliza la imagen oficial de MongoDB.
+    ports:
+      - "27017:27017" # Mapea el puerto por defecto de MongoDB del host al puerto 27017 del contenedor.
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - mongo_data:/data/db # Monta un volumen de Docker llamado 'mongo_data' para persistir los datos de la base de datos.
+                             # Esto evita la pérdida de datos al reiniciar los contenedores.
+    environment:
+      # Variables opcionales para configurar un usuario/contraseña de administrador para MongoDB.
+      # Si no las necesitas para la prueba, puedes eliminarlas o dejarlas comentadas.
+      MONGO_INITDB_ROOT_USERNAME: your_mongo_user
+      MONGO_INITDB_ROOT_PASSWORD: your_mongo_password
 
 volumes:
-  db_data:
+  mongo_data: # Definición del volumen persistente de Docker para los datos de MongoDB.

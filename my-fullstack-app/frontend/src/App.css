@@ -1,0 +1,46 @@
+/* frontend/src/App.css */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5; /* Fondo suave */
+}
+
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #61dafb;
+}
+
+main {
+  flex-grow: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+  padding: 20px;
+}
+
+/* Estilos para el separador */
+hr {
+    border: none;
+    border-top: 2px solid #ddd;
+    margin: 40px auto;
+    width: 80%;
+    max-width: 800px;
+}

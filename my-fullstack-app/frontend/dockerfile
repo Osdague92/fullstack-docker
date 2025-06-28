@@ -1,0 +1,27 @@
+# frontend/Dockerfile
+# Usamos una imagen base de Node.js, compatible con React y con la versión adecuada.
+FROM node:18-alpine 
+
+# Establecemos el directorio de trabajo dentro del contenedor a /app.
+# Todos los comandos subsiguientes se ejecutarán desde este directorio.
+WORKDIR /app
+
+# Copiamos los archivos package.json y package-lock.json.
+# Esto permite que Docker use el cache de capas si las dependencias no cambian.
+COPY package*.json ./
+
+# Instalamos las dependencias de Node.js.
+# Si tu package.json no incluye todas las dependencias de Material UI, Formik, Yup, Axios,
+# este paso fallará. Asegúrate de que npm install en tu máquina local haya funcionado correctamente.
+RUN npm install
+
+# Copiamos el resto de los archivos de la aplicación React al directorio de trabajo.
+# Esto incluye las carpetas 'public' y 'src' con tus componentes.
+COPY . .
+
+# Exponemos el puerto 3000, que es el puerto por defecto de Create React App.
+EXPOSE 3000
+
+# Comando para iniciar la aplicación React en modo desarrollo.
+# 'npm start' utiliza los scripts definidos en package.json.
+CMD ["npm", "start"]
