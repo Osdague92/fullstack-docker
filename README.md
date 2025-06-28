@@ -214,8 +214,8 @@ Este proyecto está bajo la [Licencia MIT](./LICENSE).
 
 ## 👤 Autor y Créditos
 
-**Autor/a:** [Tu Nombre Completo Aquí]  
-📧 Contacto: [Tu Correo / GitHub / LinkedIn]
+**Autor/a:** [Oscar David Guerra Hernandez]  
+📧 Contacto: [osdague@gmail.com /[ GitHub ](https://github.com/Osdague92)/[ LinkedIn](https://www.linkedin.com/in/oscarwar92/)]
 
 ### 🙌 Agradecimientos
 - Microsoft (WSL2 + VS Code)

@@ -15,7 +15,7 @@ COPY package*.json ./
 # este paso fallará. Asegúrate de que npm install en tu máquina local haya funcionado correctamente.
 RUN npm install
 
-# Copiamos el resto de los archivos de la aplicación React al directorio de trabajo.
+# Copiamos el resto de los archivos de la aplicación Re act al directorio de trabajo.
 # Esto incluye las carpetas 'public' y 'src' con tus componentes.
 COPY . .
 
