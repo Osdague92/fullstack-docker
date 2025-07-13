@@ -15,6 +15,7 @@ services:
     volumes:
       - ./backend:/app # Monta la carpeta 'backend' del host en '/app' del contenedor.
                        # Esto permite que los cambios en tu código Node.js se reflejen en tiempo real.
+      - /app/node_modules # Volumen anónimo para node_modules del backend                 
     working_dir: /app # Establece el directorio de trabajo dentro del contenedor a '/app'.
     depends_on:
       - db # Indica que el backend depende del servicio 'db' (MongoDB) para iniciar.
@@ -28,6 +29,7 @@ services:
     volumes:
       - ./frontend:/frontend # Monta la carpeta 'frontend' del host en '/frontend' del contenedor.
                              # Esto es esencial para el Live Reload de React durante el desarrollo.
+      - /frontend/node_modules # Volumen anónimo para node_modules del frontend                       
     environment:
       # FIX CRÍTICO para el error "ERR_OSSL_EVP_UNSUPPORTED" en Node.js 17+ (OpenSSL 3.0).
       # Le dice a Node.js que use el proveedor legado de OpenSSL para asegurar compatibilidad.
