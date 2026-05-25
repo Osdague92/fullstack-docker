@@ -44,12 +44,11 @@ const connectDB = async () => {
   try {
     // Intenta conectar el cliente MongoDB al servidor.
     await client.connect();
-    // Una vez conectado, asigna la base de datos 'my_app_db' a la variable 'db'.
-    // Es importante especificar el nombre de la base de datos aquí,
-    // ya que `client.db()` sin argumentos podría tomar el nombre de la URI,
-  
-    db = client.db("my_app_db"); 
-    console.log('MongoDB conectado usando el driver nativo');
+    // Extrae el nombre de la base de datos de la URI o usa 'mydatabase' por defecto
+    const dbName = process.env.MONGO_URI ? process.env.MONGO_URI.split('/').pop() : 'mydatabase';
+    // Una vez conectado, asigna la base de datos a la variable 'db'.
+    db = client.db(dbName);
+    console.log(`MongoDB conectado a la base de datos: ${dbName}`);
   } catch (error) {
     // Si ocurre un error durante la conexión, lo registra en la consola.
     console.error('Error al conectar a MongoDB:', error.message);

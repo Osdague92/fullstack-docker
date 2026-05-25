@@ -10,8 +10,7 @@ services:
       - "5000:5000" # Mapea el puerto 5000 del host al puerto 5000 del contenedor.
     environment:
       - NODE_ENV=development # Variable de entorno para el modo de desarrollo.
-      # Asegúrate de que 'your_database_name' sea el nombre real que usas en backend/db.js
-      - DATABASE_URL=mongodb://db:27017/your_database_name # URI de MongoDB para el backend.
+      - MONGO_URI=mongodb://db:27017/mydatabase # URI de MongoDB para el backend.
     volumes:
       - ./backend:/app # Monta la carpeta 'backend' del host en '/app' del contenedor.
                        # Esto permite que los cambios en tu código Node.js se reflejen en tiempo real.
@@ -46,10 +45,7 @@ services:
       - mongo_data:/data/db # Monta un volumen de Docker llamado 'mongo_data' para persistir los datos de la base de datos.
                              # Esto evita la pérdida de datos al reiniciar los contenedores.
     environment:
-      # Variables opcionales para configurar un usuario/contraseña de administrador para MongoDB.
-      # Si no las necesitas para la prueba, puedes eliminarlas o dejarlas comentadas.
-      MONGO_INITDB_ROOT_USERNAME: your_mongo_user
-      MONGO_INITDB_ROOT_PASSWORD: your_mongo_password
+      # Sin autenticación para desarrollo local
 
 volumes:
   mongo_data: # Definición del volumen persistente de Docker para los datos de MongoDB.

@@ -1,9 +1,9 @@
 // frontend/src/App.js
 
 import React, { useState } from 'react';
-import ItemList from './components/ItemList';
-import ItemForm from './components/ItemForm';
-import Navbar from './components/Navbar';
+import ItemList from '../components/ItemList';
+import ItemForm from '../components/ItemForm';
+import Navbar from '../components/Navbar';
 import './App.css'; // Mantenemos un App.css para estilos básicos
 // import './index.css'; // Ya no es necesario si index.css solo tenía directivas Tailwind
 
